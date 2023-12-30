@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_seller_app/bloc/logout/logout_bloc.dart';
 import 'package:flutter_seller_app/data/datasources/auth_local_datasources.dart';
-
+import 'package:flutter_seller_app/pages/auth/auth_page.dart';
 
 import '../../utils/images.dart';
-import '../home/home_page.dart';
-import '../more/more_page.dart';
-import '../order_history/order_history_page.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -22,28 +21,54 @@ class _HomePageState extends State<DashboardPage> {
 
   bool singleVendor = false;
 
-  String token = '';
-
   @override
   void initState() {
     super.initState();
 
-    AuthLocalDatasoruce().getToken().then((value) {
-      setState(() {
-      token = value;  
-      });
-    });
-
     _screens = [
-      const HomePage(),
-      const OrderHistoryPage(),
-      const MorePage(),
+      const Center(child: Text('Home')),
+      const Center(child: Text('Product')),
+      Center(
+          child: BlocConsumer<LogoutBloc, LogoutState>(
+        listener: (context, state) {
+          state.maybeWhen(
+            orElse: (){},
+            loaded: (message) {
+              AuthLocalDatasoruce().removeAuthData();
+              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context){
+                return const AuthPage();
+              }, ), (route) => false);
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Logout Success'),
+          backgroundColor: Colors.blue,
+        ));
+            },
+            error:(message) {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(message),
+          backgroundColor: Colors.red,
+        ));
+            },);
+        },
+        builder: (context, state) {
+          return state.maybeWhen(orElse: () {
+            return ElevatedButton(onPressed: () {
+              context.read<LogoutBloc>().add(const LogoutEvent.logout());
+            }, child: const Text('Logout')
+            );
+          },
+          loading: () => const Center(child: CircularProgressIndicator(),),
+          );
+      }),
+      ),
     ];
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: const Text('Dashboard')
+      ),
       key: _scaffoldKey,
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Theme.of(context).primaryColor,
@@ -90,11 +115,19 @@ class _HomePageState extends State<DashboardPage> {
 
   List<BottomNavigationBarItem> _getBottomWidget(bool isSingleVendor) {
     List<BottomNavigationBarItem> list = [];
+
+    if (!isSingleVendor) {
       list.add(_barItem(Images.homeImage, 'Home', 0));
 
-      list.add(_barItem(Images.shoppingImage, 'Orders', 1));
+      list.add(_barItem(Images.shoppingImage, 'Product', 1));
 
       list.add(_barItem(Images.moreImage, 'More', 2));
+    } else {
+      list.add(_barItem(Images.homeImage, 'Home', 0));
+      list.add(_barItem(Images.shoppingImage, 'Product', 1));
+
+      list.add(_barItem(Images.moreImage, 'More', 2));
+    }
 
     return list;
   }
