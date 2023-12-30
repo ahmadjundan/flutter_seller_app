@@ -1,6 +1,7 @@
 # flutter_seller_app
 
 A new Flutter project.
+Tugas Mata Kuliah Pemrograman Mobile Lanjut
 
 ## Getting Started
 

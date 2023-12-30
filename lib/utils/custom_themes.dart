@@ -3,49 +3,49 @@ import 'package:flutter/material.dart';
 import 'dimensions.dart';
 
 const titilliumRegular = TextStyle(
-  fontFamily: 'Sdk',
+  fontFamily: 'Corbel',
   fontSize: Dimensions.fontSizeSmall,
 );
 const titleRegular = TextStyle(
-  fontFamily: 'Sdk',
+  fontFamily: 'Corbel',
   fontWeight: FontWeight.w500,
   fontSize: Dimensions.fontSizeDefault,
 );
 const titleHeader = TextStyle(
-  fontFamily: 'Sdk',
+  fontFamily: 'Corbel',
   fontWeight: FontWeight.w600,
   fontSize: Dimensions.fontSizeLarge,
 );
 const titilliumSemiBold = TextStyle(
-  fontFamily: 'Sdk',
+  fontFamily: 'Corbel',
   fontSize: Dimensions.fontSizeSmall,
   fontWeight: FontWeight.w600,
 );
 
 const titilliumBold = TextStyle(
-  fontFamily: 'Sdk',
+  fontFamily: 'Corbel',
   fontSize: Dimensions.fontSizeDefault,
   fontWeight: FontWeight.w700,
 );
 const titilliumItalic = TextStyle(
-  fontFamily: 'Sdk',
+  fontFamily: 'Corbel',
   fontSize: Dimensions.fontSizeDefault,
   fontStyle: FontStyle.italic,
 );
 
 const robotoRegular = TextStyle(
-  fontFamily: 'Sdk',
+  fontFamily: 'Corbel',
   fontSize: Dimensions.fontSizeDefault,
 );
 
 const robotoBold = TextStyle(
-  fontFamily: 'Sdk',
+  fontFamily: 'Corbel',
   fontSize: Dimensions.fontSizeDefault,
   fontWeight: FontWeight.w700,
 );
 
 const robotoMedium = TextStyle(
-  fontFamily: 'Sdk',
+  fontFamily: 'Corbel',
   fontSize: Dimensions.fontSizeDefault,
   fontWeight: FontWeight.w500,
 );
