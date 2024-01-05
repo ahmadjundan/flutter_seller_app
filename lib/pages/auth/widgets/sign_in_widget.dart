@@ -126,30 +126,34 @@ class SignInWidgetState extends State<SignInWidget> {
                   left: 20, right: 20, bottom: 20, top: 30),
               child: BlocConsumer<LoginBloc, LoginState>(
                 listener: (context, state) {
-                  state.maybeWhen(orElse: () {},
-                  loaded:(data) async {
-                    await AuthLocalDatasoruce().saveAuthData(data);
-                  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context){
-                    return const DashboardPage();
-                  }), (route) => false);
-                  },
-                  error: (message) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(message),
-                        backgroundColor: Colors.red,
-                      ),
-                    );
-                  },);
+                  state.maybeWhen(
+                    orElse: () {},
+                    loaded: (data) async {
+                      await AuthLocalDatasoruce().saveAuthData(data);
+                      Navigator.pushAndRemoveUntil(context,
+                          MaterialPageRoute(builder: (context) {
+                        return const DashboardPage();
+                      }), (route) => false);
+                    },
+                    error: (message) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(message),
+                          backgroundColor: Colors.red,
+                        ),
+                      );
+                    },
+                  );
                 },
                 builder: (context, state) {
                   return state.maybeWhen(
                     orElse: () {
-                  return CustomButton(onTap: loginUser, buttonText: 'Sign In');
-                  },
-                  loading: () => const Center(
-                    child: CircularProgressIndicator(),
-                  ),
+                      return CustomButton(
+                          onTap: loginUser, buttonText: 'Sign In');
+                    },
+                    loading: () => const Center(
+                      child: CircularProgressIndicator(),
+                    ),
                   );
                 },
               ),
