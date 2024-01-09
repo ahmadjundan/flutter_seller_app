@@ -1,4 +1,7 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+
+import 'package:flutter_seller_app/data/models/categories_response_model.dart';
 
 import '../../../utils/color_resources.dart';
 import '../../../utils/custom_themes.dart';
@@ -6,7 +9,11 @@ import '../../../utils/dimensions.dart';
 import '../../../utils/images.dart';
 
 class CategoryItemWiget extends StatelessWidget {
-  const CategoryItemWiget({super.key});
+  final Category category;
+  const CategoryItemWiget({
+    Key? key,
+    required this.category,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +32,7 @@ class CategoryItemWiget extends StatelessWidget {
           child: FadeInImage.assetNetwork(
             fit: BoxFit.cover,
             placeholder: Images.placeholder,
-            image: 'https://picsum.photos/200',
+            image: 'https://picsum.photos/20${category.id}',
             imageErrorBuilder: (c, o, s) => Image.asset(
               Images.placeholder,
               fit: BoxFit.cover,
@@ -36,7 +43,7 @@ class CategoryItemWiget extends StatelessWidget {
       const SizedBox(height: Dimensions.paddingSizeExtraSmall),
       Center(
         child: Text(
-          'Electronic',
+          category.name,
           textAlign: TextAlign.center,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,

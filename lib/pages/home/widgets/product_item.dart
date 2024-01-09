@@ -1,5 +1,7 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
+import 'package:flutter_seller_app/data/models/product_response_model.dart';
 
 import '../../../utils/color_resources.dart';
 import '../../../utils/custom_themes.dart';
@@ -9,7 +11,11 @@ import '../../base_widgets/rating_bar.dart';
 import '../../product/product_detail.dart';
 
 class ProductItemWidget extends StatelessWidget {
-  const ProductItemWidget({super.key});
+  final Product product;
+  const ProductItemWidget({
+    Key? key,
+    required this.product,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +57,7 @@ class ProductItemWidget extends StatelessWidget {
                   placeholder: Images.placeholder,
                   fit: BoxFit.cover,
                   height: MediaQuery.of(context).size.width / 2.45,
-                  image: 'https://picsum.photos/250',
+                  image: product.imageProduct!,
                   imageErrorBuilder: (c, o, s) => Image.asset(
                       Images.placeholder,
                       fit: BoxFit.cover,
@@ -72,7 +78,7 @@ class ProductItemWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Jam Tangan Mewah',
+                    Text(product.name ?? '',
                         textAlign: TextAlign.center,
                         style: robotoRegular.copyWith(
                             fontSize: Dimensions.fontSizeSmall,
@@ -93,10 +99,10 @@ class ProductItemWidget extends StatelessWidget {
                     const SizedBox(height: Dimensions.paddingSizeExtraSmall),
                     const SizedBox.shrink(),
                     const SizedBox(
-                      height: 2,
+                      height: 4,
                     ),
                     Text(
-                      'Rp 2.000.000',
+                      'Rp. ${product.price}',
                       style: titilliumSemiBold.copyWith(
                           color: ColorResources.getPrimary(context)),
                     ),

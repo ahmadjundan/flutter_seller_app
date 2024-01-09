@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-
+import 'package:flutter_seller_app/data/models/product_response_model.dart';
 
 import '../../utils/color_resources.dart';
 import '../../utils/dimensions.dart';
@@ -42,7 +42,10 @@ class CategoryProductsPage extends StatelessWidget {
               itemCount: 4,
               shrinkWrap: true,
               itemBuilder: (BuildContext context, int index) {
-                return const ProductItemWidget();
+                var model;
+                return ProductItemWidget(
+                  product: model.data![index],
+                );
               },
             ),
           )
